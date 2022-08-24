@@ -12,6 +12,7 @@ TAG_FAILED = 'Falha ao {} tag no banco.'
 
 # not_found
 CARD_NOT_FOUND = 'Card(s) não encontrado(s)'
+TAG_NOT_FOUND = 'Tag(s) não encontrada(s)'
 
 # conflict
 CARD_ALREADY_EXISTS = 'Um card com esse nome já existe.'

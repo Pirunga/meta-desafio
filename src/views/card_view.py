@@ -33,6 +33,21 @@ def list_cards():
     return response.success(CARD_SUCCESS.format('encontrado(s)'), cards)
 
 
+@bp_card.route('/<int:card_id>', methods=['GET'])
+def get_card(card_id):
+    """
+    Get card with specific id.
+
+    :param int card_id: Id of card to delete.
+    """
+    try:
+        card: CardModel = CardModel.query.get(card_id)
+
+        return response.success(CARD_SUCCESS.format('encontrado'), card)
+    except AttributeError:
+        return response.failed(CARD_NOT_FOUND)
+
+
 @bp_card.route('/', methods=['POST'])
 def create_card():
     """
