@@ -16,13 +16,13 @@ def create_tag():
     """
     Create tag.
     """
-    name = request.get_json().get('name')
+    name = request.get_json().get('name').upper()
     session = current_app.db.session
 
-    if CardModel.query.filter_by(name=name.uppercase()).first():
+    if TagModel.query.filter_by(name=name).first():
         return response.conflict(TAG_ALREADY_EXISTS)
 
-    new_card: CardModel = CardModel(name=name.uppercase())
+    new_card: TagModel = TagModel(name=name)
 
     session.add(new_card)
     session.commit()
@@ -81,9 +81,9 @@ def update_tag(tag_id):
     if not tag:
         return response.failed(TAG_NOT_FOUND)
 
-    tag.texto = body.get('name')
+    tag.name = body.get('name')
 
     session.add(tag)
     session.commit()
 
-    return response.success(TAG_SUCCESS.format('atualizadA'))
+    return response.success(TAG_SUCCESS.format('atualizada'))

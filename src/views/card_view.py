@@ -24,7 +24,7 @@ def list_cards():
     
     cards = []
 
-    if tag := TagModel.query.filter(TagModel.name == tag.uppercase()).first():
+    if tag := TagModel.query.filter(TagModel.name == tag.upper()).first():
         cards = session.query(CardModel).join(CardTagModel).filter(CardTagModel.tag_id == tag.id).all()
     
     if not cards:
@@ -65,7 +65,7 @@ def create_card():
     session.add(new_card)
 
     for tag in body.get('tags'):
-        if tag_founded := TagModel.query.filter_by(name=tag.uppercase()).first():
+        if tag_founded := TagModel.query.filter_by(name=tag.upper()).first():
             card_tag: CardTagModel = CardTagModel(card_id=new_card.id, tag_id=tag_founded.id)
 
             session.add_all([new_card, card_tag])
@@ -122,7 +122,7 @@ def update_card(card_id):
     
     if tags := body.get('tags'):
         for tag in tags:
-            if tag_founded := TagModel.query.filter_by(name=tag.uppercase()).first():
+            if tag_founded := TagModel.query.filter_by(name=tag.upper()).first():
                 card_tag: CardTagModel = CardTagModel(card_id=card.id, tag_id=tag_founded.id)
 
                 session.add_all([card, card_tag])
